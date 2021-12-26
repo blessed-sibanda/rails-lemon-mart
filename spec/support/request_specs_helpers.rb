@@ -1,16 +1,13 @@
+require "devise/jwt/test_helpers"
+
 module RequestSpecsHelpers
   def json
     JSON.parse(response.body)
   end
 
-  def token_for(user)
-    post "/api/login", xhr: true, params: {
-                         user: {
-                           email: user.email,
-                           password: user.password,
-                         },
-                       }
-    response.headers["Authorization"]
+  def auth_headers(user)
+    headers = {}
+    Devise::JWT::TestHelpers.auth_headers(headers, user)
   end
 
   def random_paginable_data(entity, per_page:)
