@@ -16,7 +16,7 @@ RSpec.describe "Auth::Sessions", type: :request do
 
   describe "POST /login" do
     it "returns 401 unauthorized when invalid credentials are given" do
-      post user_session_url, xhr: true, params: {
+      post user_session_url, params: {
                                user: {
                                  email: "some-random-email@example.com",
                                  password: "very wrong password",
@@ -27,10 +27,10 @@ RSpec.describe "Auth::Sessions", type: :request do
 
     context "correct credentials" do
       before do
-        post user_session_url, xhr: true,
-                               params: {
-                                 user: valid_attributes,
-                               }
+        post user_session_url,
+             params: {
+               user: valid_attributes,
+             }
       end
 
       it "succeeds" do
@@ -45,7 +45,7 @@ RSpec.describe "Auth::Sessions", type: :request do
 
   describe "DELETE /logout" do
     it "returns no-content" do
-      delete destroy_user_session_url, xhr: true, headers: valid_headers
+      delete destroy_user_session_url, headers: valid_headers
       expect(response).to have_http_status(:no_content)
     end
 
