@@ -34,5 +34,10 @@ FactoryBot.define do
     last_name { Faker::Name.last_name }
     password { "my-secret" }
     email { "user-#{SecureRandom.hex(4)}@example.com" }
+    role { User::ROLES.sample }
+    line1 { Faker::Address.street_address }
+    city { Faker::Address.city }
+    state { Faker::Address.state }
+    zip { Faker::Address.zip }
   end
 end
