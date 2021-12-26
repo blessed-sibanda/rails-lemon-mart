@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, defaults: { format: :json }, path: "",
+  devise_for :users, defaults: { format: :json }, path: "v1",
                      path_names: {
                        sign_in: "auth/login",
                        sign_out: "auth/logout",
