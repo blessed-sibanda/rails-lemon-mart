@@ -10,24 +10,28 @@ gem 'pg', '~> 1.1'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.7'
+gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails', '~> 5.0.2'
+  gem 'factory_bot_rails', '~> 6.2.0'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'faker'
 end
 
 group :development do
@@ -36,5 +40,16 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'email_spec', '~> 2.2.0'
+end
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'devise', '~> 4.8'
+gem 'devise-jwt', '~> 0.9.0'
+gem 'pager_api', '~> 0.3.2'
+gem 'will_paginate', '~> 3.3'
+gem 'pagy', '~> 5.6'
+gem 'kaminari', '~> 1.2'
+gem 'haml-rails', '~> 2.0'
