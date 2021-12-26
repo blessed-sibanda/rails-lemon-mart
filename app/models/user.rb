@@ -44,7 +44,6 @@ class User < ApplicationRecord
                     first_name: "A",
                     last_name: "A",
                     role: "B",
-                    middle_name: "C",
                   }, using: {
                     tsearch: { prefix: true },
                   }

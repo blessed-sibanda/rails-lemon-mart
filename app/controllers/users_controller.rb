@@ -6,17 +6,23 @@ class UsersController < ApplicationController
     search_text = params[:filter]
     sort_key = params[:sort]
 
-    if search_text
-      @users = User.search(search_text).paginate(page: page)
-    elsif sort_key
-      allowed_sort_fields = ["email", "first_name", "last_name", "middle_name"]
+    if sort_key
+      allowed_sort_fields = ["email", "first_name", "last_name", "middle_name", "role"]
       sort_order = sort_key.starts_with?("-") ? :desc : :asc
       sort_key = sort_key[1..-1] if sort_key.starts_with?("-")
       unless allowed_sort_fields.include? sort_key
         render json: {
-          error: "'#{sort_key}' is not a valid sort field",
-        }, status: 400
+                 error: "'#{sort_key}' is not a valid sort field",
+               }, status: 400
       end
+    end
+
+    if search_text && sort_key
+      user_ids = User.search(search_text).pluck(:id)
+      @users = User.where(id: user_ids).paginate(page: page).order({ sort_key => sort_order })
+    elsif search_text
+      @users = User.search(search_text).paginate(page: page)
+    elsif sort_key
       @users = User.paginate(page: page).order({ sort_key => sort_order })
     else
       @users = User.paginate(page: page).order(:created_at)

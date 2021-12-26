@@ -42,11 +42,12 @@ RSpec.describe "Users", type: :request do
         search_text = ("a".."z").to_a.sample(1).join
         get users_url(filter: search_text), headers: auth_headers(user)
 
+        search_text.downcase!
         json["data"].each do |data|
           search_criteria = data["role"].downcase.starts_with?(search_text) ||
                             data["name"]["first"].downcase.starts_with?(search_text) ||
                             data["name"]["last"].downcase.starts_with?(search_text) ||
-                            data["name"]["middle"]&.downcase.starts_with?(search_text)
+                            data["email"].downcase.starts_with?(search_text)
           expect(search_criteria).to be_truthy
         end
       end
@@ -71,6 +72,33 @@ RSpec.describe "Users", type: :request do
         sort_criteria = json["data"][0]["email"] <= json["data"][1]["email"] &&
                         json["data"][1]["email"] <= json["data"][2]["email"] &&
                         json["data"][2]["email"] <= json["data"][3]["email"]
+        expect(sort_criteria).to be_truthy
+
+        sort_key = "role"
+        get users_url(sort: sort_key), headers: auth_headers(user)
+        sort_criteria = json["data"][0]["role"] <= json["data"][1]["role"] &&
+                        json["data"][1]["role"] <= json["data"][2]["role"] &&
+                        json["data"][2]["role"] <= json["data"][3]["role"]
+        expect(sort_criteria).to be_truthy
+      end
+
+      it "allows both searching and sorting at the same time" do
+        create :user, first_name: "Blessed"
+        create :user, last_name: "Blakes"
+        search_text = "Bl"
+        sort_key = "-first_name"
+        get users_url(filter: search_text, sort: sort_key), headers: auth_headers(user)
+
+        search_text.downcase!
+        json["data"].each do |data|
+          search_criteria = data["role"].downcase.starts_with?(search_text) ||
+                            data["name"]["first"].downcase.starts_with?(search_text) ||
+                            data["name"]["last"].downcase.starts_with?(search_text) ||
+                            data["email"].downcase.starts_with?(search_text)
+          expect(search_criteria).to be_truthy
+        end
+
+        sort_criteria = json["data"][0]["name"]["first"] >= json["data"][1]["name"]["first"]
         expect(sort_criteria).to be_truthy
       end
 
