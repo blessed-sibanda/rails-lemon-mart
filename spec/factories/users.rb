@@ -3,18 +3,23 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  city                   :string           not null
 #  date_of_birth          :date
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string           not null
 #  last_name              :string           not null
 #  level                  :integer
+#  line1                  :string           not null
+#  line2                  :string
 #  middle_name            :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
 #  role                   :string           default("none")
+#  state                  :string           not null
 #  user_status            :boolean          default(TRUE)
+#  zip                    :string           not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #

@@ -14,6 +14,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.integer :level
       t.boolean :user_status, default: true
 
+      # Address
+      t.string :line1, null: false
+      t.string :line2
+      t.string :city, null: false
+      t.string :state, null: false
+      t.string :zip, null: false
+
       ## Recoverable
       t.string :reset_password_token
       t.datetime :reset_password_sent_at
