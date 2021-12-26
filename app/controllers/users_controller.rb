@@ -1,4 +1,4 @@
-class V2::UsersController < ApplicationController
+class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -32,5 +32,6 @@ class V2::UsersController < ApplicationController
 
   def me
     @user = current_user
+    render :show
   end
 end

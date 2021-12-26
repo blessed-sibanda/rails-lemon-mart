@@ -1,5 +1,5 @@
 json.cache! [@user] do
-  json.partial! "v2/users/user", user: @user, cached: true
+  json.partial! "users/user", user: @user, cached: true
 
   json.address do
     json.line1 @user.line1

@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  namespace :v2 do
-    resources :users, only: [:index, :show], defaults: { format: :json } do
-      collection { get :me }
-    end
+  resources :users, only: [:index, :show], defaults: { format: :json } do
+    collection { get :me }
   end
 
-  devise_for :users, defaults: { format: :json }, path: "v1/auth",
+  devise_for :users, defaults: { format: :json }, path: "auth",
                      path_names: {
                        sign_in: "login",
                        sign_out: "logout",

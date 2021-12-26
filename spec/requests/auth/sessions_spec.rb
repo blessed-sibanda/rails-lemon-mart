@@ -51,13 +51,13 @@ RSpec.describe "Auth::Sessions", type: :request do
 
     it "revokes the user token" do
       token = auth_headers(user)["Authorization"]
-      get v2_users_url, headers: { 'Authorization': token }
+      get users_url, headers: { 'Authorization': token }
       expect(json["error"]).to be_nil
       expect(response).to have_http_status(:ok)
 
       # now revoke the token
       delete destroy_user_session_url, headers: { 'Authorization': token }
-      get v2_users_url, headers: { 'Authorization': token }
+      get users_url, headers: { 'Authorization': token }
 
       # use the token again, after revoking
       expect(json["error"]).to eq "revoked token"

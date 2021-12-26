@@ -1,7 +1,7 @@
 json.cache! [user] do
   json.extract! user, :id, :email, :role
 
-  json.url v2_user_url(user)
+  json.url user_url(user)
 
   json.name do
     json.first user.first_name
