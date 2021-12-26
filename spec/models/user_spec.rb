@@ -34,5 +34,6 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it { should have_one(:address) }
+    it { should have_many(:phones) }
   end
 end
